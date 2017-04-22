@@ -4,8 +4,10 @@
     "host": "smtp.gmail.com",
     "port": 587,
     "auth": {
-      "user": "_EMAIL_@gmail.com",
-      "pass": "PASSWORD"
+      "user": "YOUR_EMAIL@gmail.com",
+      "pass": "YOUR_EMAIL_PASSWORD"
     }
-  }
+  },
+  "key": "YOUR_DARKSKY_KEY",
+  "adminEmail": "emailToGetCrushNotifications"
 }

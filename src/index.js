@@ -6,11 +6,11 @@ const sendMail = require('./utils/mailer')
 if (cluster.isMaster) {
   cluster.fork()
 
-  cluster.on('exit', function (worker, code, signal) {
+  cluster.on('exit', (worker, code, signal) => {
     logger.log('info ' + worker.id + ' died. Restarting...', code, signal)
 
     sendMail({
-      to: config.smtpConfig.auth.user,
+      to: config.adminEmail,
       subject: 'Crush notification',
       text: 'Forecast app crushed! Please check dashboard to get more information.',
       html: '<div>Forecast app crushed! Please check dashboard to get more information.</div>'
