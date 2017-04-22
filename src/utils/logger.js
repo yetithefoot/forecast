@@ -6,7 +6,8 @@ const formatter = (options) => {
       (options.meta && Object.keys(options.meta).length ? '\n\t' + JSON.stringify(options.meta) : '')
 }
 
-winston.handleExceptions(new winston.transports.File({ filename: 'logfile.log' }))
+const filename = './build/logfile.log'
+winston.handleExceptions(new winston.transports.File({ filename }))
 
 const logger = new (winston.Logger)({
   levels: {
@@ -24,7 +25,7 @@ const logger = new (winston.Logger)({
       formatter
     }),
     new (winston.transports.File)({
-      filename: 'logfile.log',
+      filename,
       level: 'http',
       handleExceptions: true,
       json: false,
