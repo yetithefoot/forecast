@@ -37,7 +37,6 @@ if (cluster.isWorker) {
   app.use(compression())
   app.options('*', cors())
 
-  app.get('/', main.client)
   app.get('/dashboard', main.dashboard)
   app.get('/forecast', main.forecast)
 
