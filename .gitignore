@@ -1,7 +1,5 @@
 /.idea/
 /node_modules/
 /build/main*
-config.json
-!/build/config.json
 npm-debug.log
 logfile*.log
