@@ -1,0 +1,31 @@
+{
+  "name": "forecast",
+  "version": "1.0.0",
+  "description": "forecast app",
+  "main": "server.js",
+  "scripts": {
+    "start": "backpack",
+    "build": "backpack build"
+  },
+  "author": "Pavlo Andriiesh <pavlo.andriiesh@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "compression": "^1.6.2",
+    "cors": "^2.8.1",
+    "express": "^4.14.0",
+    "morgan": "^1.7.0",
+    "nodemailer": "^2.7.2",
+    "winston": "^2.3.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.1.1",
+    "backpack-core": "0.0.7",
+    "cross-env": "^3.1.4",
+    "eslint": "^3.15.0",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-plugin-promise": "^3.4.1",
+    "eslint-plugin-standard": "^2.0.1",
+    "standard": "^8.6.0"
+  }
+}
