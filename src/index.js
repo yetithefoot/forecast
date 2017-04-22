@@ -7,7 +7,7 @@ if (cluster.isMaster) {
   cluster.fork()
 
   cluster.on('exit', (worker, code, signal) => {
-    logger.log('info ' + worker.id + ' died. Restarting...', code, signal)
+    logger.info(worker.id + ' died. Restarting...', code, signal)
 
     sendMail({
       to: config.adminEmail,
