@@ -1,7 +1,6 @@
 # Forecast
 
 
-
 ``` bash
 # install dependencies
 npm install
