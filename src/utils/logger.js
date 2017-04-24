@@ -1,5 +1,7 @@
 const winston = require('winston')
 const dateFormat = require('dateformat')
+const nodemailer = require('nodemailer')
+const config = require('config')
 
 const timestamp = () => dateFormat(new Date(), 'yyyy-mm-dd HH:MM:ss', true)
 
@@ -9,6 +11,9 @@ const formatter = (options) => {
 }
 
 const filename = './build/logfile.log'
+
+const transporter = nodemailer.createTransport(config.get('smtp'))
+
 winston.handleExceptions(new winston.transports.File({ filename }))
 
 const logger = new (winston.Logger)({
@@ -43,6 +48,22 @@ const logger = new (winston.Logger)({
 
 logger.stream = {
   write: message => logger.log('http', message.trim())
+}
+
+logger.sendErrorMail = () => {
+  const options = {
+    from: 'Forecast <' + config.get('auth.user') + '>',
+    to: config.get('adminEmail'),
+    subject: 'Crush notification',
+    text: 'Forecast app crushed! Please check dashboard to get more information.',
+    html: '<div>Forecast app crushed! Please check dashboard to get more information.</div>'
+  }
+
+  transporter.sendMail(options, (error, info) => {
+    if (error) {
+      logger.error(`Send error mail to ${options.to}`, error)
+    }
+  })
 }
 
 module.exports = logger

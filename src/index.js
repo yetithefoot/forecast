@@ -1,7 +1,6 @@
 const cluster = require('cluster')
 const logger = require('./utils/logger')
 const config = require('config')
-const sendMail = require('./utils/mailer')
 
 if (cluster.isMaster) {
   cluster.fork()
@@ -9,7 +8,7 @@ if (cluster.isMaster) {
   cluster.on('exit', (worker, code, signal) => {
     logger.info(worker.id + ' died. Restarting...', code, signal)
 
-    sendMail()
+    logger.sendErrorMail()
     cluster.fork()
   })
 }
