@@ -1,6 +1,6 @@
 const cluster = require('cluster')
 const logger = require('./utils/logger')
-const config = require('./utils/config')
+const config = require('config')
 const sendMail = require('./utils/mailer')
 
 if (cluster.isMaster) {
@@ -10,7 +10,7 @@ if (cluster.isMaster) {
     logger.info(worker.id + ' died. Restarting...', code, signal)
 
     sendMail({
-      to: config.adminEmail,
+      to: config.get('adminEmail'),
       subject: 'Crush notification',
       text: 'Forecast app crushed! Please check dashboard to get more information.',
       html: '<div>Forecast app crushed! Please check dashboard to get more information.</div>'
@@ -24,7 +24,7 @@ if (cluster.isWorker) {
   const app = express()
   const compression = require('compression')
   const bodyParser = require('body-parser')
-  const PORT = process.env.PORT || config.port
+  const PORT = process.env.PORT || config.get('port')
   const morgan = require('morgan')
   const cors = require('cors')
   const main = require('./controllers/main')

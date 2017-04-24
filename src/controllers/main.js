@@ -1,5 +1,5 @@
 const Forecast = require('forecast')
-const config = require('../utils/config')
+const config = require('config')
 const request = require('superagent')
 const logger = require('../utils/logger')
 
@@ -11,7 +11,7 @@ const Bali = {
 exports.forecast = (req, res) => {
   const forecast = new Forecast({
     service: 'darksky',
-    key: config.key,
+    key: config.get('key'),
     units: 'celcius',
     cache: true
   })
