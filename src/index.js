@@ -9,12 +9,7 @@ if (cluster.isMaster) {
   cluster.on('exit', (worker, code, signal) => {
     logger.info(worker.id + ' died. Restarting...', code, signal)
 
-    sendMail({
-      to: config.get('adminEmail'),
-      subject: 'Crush notification',
-      text: 'Forecast app crushed! Please check dashboard to get more information.',
-      html: '<div>Forecast app crushed! Please check dashboard to get more information.</div>'
-    })
+    sendMail()
     cluster.fork()
   })
 }
