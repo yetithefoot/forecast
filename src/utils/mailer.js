@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer')
 const logger = require('./logger')
 const config = require('config')
-const transporter = nodemailer.createTransport(config.get('smtpConfig'))
+const transporter = nodemailer.createTransport(config.get('smtp'))
 
 module.exports = (mailOptions) => {
   const options = {

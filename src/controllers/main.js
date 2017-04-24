@@ -10,8 +10,8 @@ const Bali = {
 
 exports.forecast = (req, res) => {
   const forecast = new Forecast({
-    service: 'darksky',
-    key: config.get('key'),
+    service: config.get('forecast.service'),
+    key: config.get('forecast.key'),
     units: 'celcius',
     cache: true
   })

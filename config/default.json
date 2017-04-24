@@ -1,6 +1,6 @@
 {
   "port": 3223,
-  "smtpConfig": {
+  "smtp": {
     "host": "smtp.gmail.com",
     "port": 587,
     "auth": {
@@ -8,6 +8,9 @@
       "pass": "test63399test63399"
     }
   },
-  "key": "88770df91ca78ad81a57cc34c8e51693",
+  "forecast": {
+    "service": "darksky",
+    "key": "88770df91ca78ad81a57cc34c8e51693"
+  },
   "adminEmail": "pavlo.andriiesh@gmail.com"
 }
