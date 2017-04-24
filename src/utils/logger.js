@@ -1,5 +1,7 @@
 const winston = require('winston')
-const timestamp = require('./helpers').timestamp
+const dateFormat = require('dateformat')
+
+const timestamp = () => dateFormat(new Date(), 'yyyy-mm-dd HH:MM:ss', true)
 
 const formatter = (options) => {
   return options.timestamp() + ' ' + options.level.toUpperCase() + ' ' + (options.message ? options.message : '') +
@@ -21,7 +23,7 @@ const logger = new (winston.Logger)({
       handleExceptions: true,
       json: false,
       colorize: true,
-      timestamp: () => timestamp(new Date()),
+      timestamp,
       formatter
     }),
     new (winston.transports.File)({
@@ -32,7 +34,7 @@ const logger = new (winston.Logger)({
       maxsize: 10485760, // 10 Mb
       maxFiles: 1,
       colorize: false,
-      timestamp: () => timestamp(new Date()),
+      timestamp,
       formatter
     })
   ],
