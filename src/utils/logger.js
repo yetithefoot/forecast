@@ -2,6 +2,7 @@ const winston = require('winston')
 const dateFormat = require('dateformat')
 const nodemailer = require('nodemailer')
 const config = require('config')
+const striptags = require('striptags')
 
 const timestamp = () => dateFormat(new Date(), 'yyyy-mm-dd HH:MM:ss', true)
 
@@ -50,18 +51,20 @@ logger.stream = {
   write: message => logger.log('http', message.trim())
 }
 
-logger.sendErrorMail = () => {
+logger.crash = () => {
+  const html = '<div>Forecast app crashed! Please check dashboard to get more information.</div>';
   const options = {
-    from: 'Forecast <' + config.get('auth.user') + '>',
+    from: 'Forecast <' + config.get('smtp.auth.user') + '>',
     to: config.get('adminEmail'),
-    subject: 'Crush notification',
-    text: 'Forecast app crushed! Please check dashboard to get more information.',
-    html: '<div>Forecast app crushed! Please check dashboard to get more information.</div>'
+    subject: 'Crash notification',
+    text: striptags(html),
+    html
   }
 
   transporter.sendMail(options, (error, info) => {
+    logger.error(`Crash report sent to ${options.to}`, error)
     if (error) {
-      logger.error(`Send error mail to ${options.to}`, error)
+      logger.error(`Error sending crash report to ${options.to}`, error)
     }
   })
 }

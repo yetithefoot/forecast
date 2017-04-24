@@ -6,9 +6,9 @@ if (cluster.isMaster) {
   cluster.fork()
 
   cluster.on('exit', (worker, code, signal) => {
+    logger.crash()
     logger.info(worker.id + ' died. Restarting...', code, signal)
 
-    logger.sendErrorMail()
     cluster.fork()
   })
 }
@@ -33,6 +33,7 @@ if (cluster.isWorker) {
 
   app.get('/dashboard', main.dashboard)
   app.get('/forecast', main.forecast)
+  app.get('/crash', () => { process.exit(1) })
 
   const listen = () => {
     app.listen(PORT, () => {
